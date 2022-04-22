@@ -1,0 +1,15 @@
+[Main]
+PIDFilePath = "/var/run/kiosk/kiosk.pid"
+MaxRetries = 3
+Timeout = 3
+
+[KioskTargetApp]
+TargetApp = "ls"
+TargetAppArgs = [ "-l", "-h" ]
+ValidExitCode = [ 0, -1 ]
+
+
+
+[Logging]
+OutputToStdOut = true
+
