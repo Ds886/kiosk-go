@@ -21,6 +21,9 @@ under the License.
 
 package main
 
+const CFG_MIN_RETRIES = 1
+const CFG_MIN_TIMEOUT = 500
+
 type cfgKioskBaseSettings struct {
 	PIDFilePath string
 	MaxRetries  int

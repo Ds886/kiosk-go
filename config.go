@@ -24,10 +24,33 @@ package main
 import (
 	"fmt"
 	"github.com/pelletier/go-toml/v2"
+	"golang.org/x/sys/unix"
 	"io/ioutil"
 	"log"
 	"os"
 )
+
+func fncVerifyConfig(cfg cfgKiosk) error {
+
+	if cfg.Main.MaxRetries < CFG_MIN_RETRIES {
+		return fmt.Errorf("MaxRetries too low, got %d. please make sure it is > %d", cfg.Main.MaxRetries, CFG_MIN_RETRIES)
+	}
+
+	if cfg.Main.Timeout < CFG_MIN_TIMEOUT {
+		return fmt.Errorf("Timeout too low, got %d. please make sure it is >%d", cfg.Main.Timeout, CFG_MIN_TIMEOUT)
+	}
+
+	fileTargetApp, err := os.Stat(cfg.KioskTargetApp.TargetApp)
+	if err != nil {
+		return fmt.Errorf("Target application path: \"%s\"", cfg.KioskTargetApp.TargetApp)
+	} else {
+		if unix.Access(cfg.KioskTargetApp.TargetApp, unix.X_OK) != nil {
+			return fmt.Errorf("Target application is not executable by the user. Application \"%s\" mode is: \"%s\"", cfg.KioskTargetApp.TargetApp, fileTargetApp.Mode().String())
+		}
+	}
+
+	return nil
+}
 
 func fncValidateConfigPath(strPath string) (string, error) {
 	filePath, err := os.Stat(strPath)

@@ -1,15 +1,20 @@
 [Main]
-PIDFilePath = "/var/run/kiosk/kiosk.pid"
+# Path to PID file
+PIDFilePath = "$HOME/.local/run/kiosk/kiosk.pid"
+# The max amount of retries(Minimum 1)
 MaxRetries = 3
-Timeout = 3
+# Timeout  between each attempt in ms(Minimum 500)
+Timeout = 2000
 
 [KioskTargetApp]
-TargetApp = "ls"
-TargetAppArgs = [ "-l", "-h" ]
-ValidExitCode = [ 0, -1 ]
-
-
+# Target app executable
+TargetApp = "/snap/bin/chromium"
+# Target app params
+TargetAppArgs = [ "https://google.com" ]
+# Override valid exit codes
+ValidExitCode = [ 0 ]
 
 [Logging]
+# Redirect output of the target program to the kiosk stdout
 OutputToStdOut = true
 

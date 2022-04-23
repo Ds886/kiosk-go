@@ -97,6 +97,6 @@ func fncRunKiosk(cfg cfgKiosk) bool {
 			nCurrentRetries++
 		}
 
-		time.Sleep(time.Duration(cfg.Main.Timeout) * time.Second)
+		time.Sleep(time.Duration(cfg.Main.Timeout) * time.Microsecond)
 	}
 }

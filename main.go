@@ -126,6 +126,11 @@ func main() {
 		cfg.KioskTargetApp.ValidExitCode = arrFlagValidExitCode
 	}
 
+	errConfig := fncVerifyConfig(cfg)
+	if errConfig != nil {
+		log.Fatalf("Error in config: \"%s\"", errConfig)
+	}
+
 	fncMainKiosk(cfg)
 
 	chanSignal := make(chan os.Signal, 1)
