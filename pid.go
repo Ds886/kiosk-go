@@ -26,6 +26,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"strconv"
 )
 
@@ -34,10 +35,20 @@ func fncPIDClear(strPidFile string) {
 	if errDeletePID != nil {
 		log.Print("Failed to remove file")
 	}
-
 }
 
 func fncPIDCreate(strPidFile string) {
+	strPIDFolder := filepath.Dir(strPidFile)
+	filePIDFolder, err := os.Stat(strPIDFolder)
+	if err != nil {
+		err := os.MkdirAll(strPIDFolder, os.ModeSticky|os.ModePerm)
+		if err != nil {
+			log.Fatalf("Folder: \"%s\" is not writeable by the user. Error: %s", strPIDFolder, err)
+		}
+	} else {
+		log.Printf("Passed check if PID folder: \"%s\" is accesible", filePIDFolder.Name())
+	}
+
 	filePid, errFile := os.Create(strPidFile)
 	if errFile != nil {
 		log.Fatal("Can't create pid file in" + strPidFile)
