@@ -16,7 +16,7 @@ It is possible to integrate it to any slim down window manager or DE by putting 
 | pid-path        | Text                          | Path to place the PID file to ensure only one instance running(Default: `/var/run/kiosk/kiosk.pid`) | `-pid-path "/var/run/kiosk/kiosk.pid"` |
 | redirect-stdout | `true`/`false`                | Print the program output to stdout of the kiosk(Default: true)                                      | `-redirect-stdout true`                |
 | target-app      | Text                          | Path of the target app to launch                                                                    | `-target-app "/usr/bin/firefox"`       |
-| timeout         | Number                        | Number in seconds to wait between each launch(Default: 5)                                           | `-timeout 6`                           |
+| timeout         | Time in ms                    | Number in seconds to wait between each launch(Default: 2000)                                        | `-timeout 1000`                           |
 
 
 ## Configuration
@@ -24,21 +24,19 @@ An example for Configuration file
 ```
 [Main]
 # Path to PID file
-PIDFilePath = "/var/run/kiosk/kiosk.pid"
-# The max amount of retries
-MaxRetries = 5
-# Timeout  between each attempt
-Timeout = 3
+PIDFilePath = "$HOME/.local/run/kiosk/kiosk.pid"
+# The max amount of retries(Minimum 1)
+MaxRetries = 3
+# Timeout  between each attempt in ms(Minimum 500)
+Timeout = 2000
 
 [KioskTargetApp]
 # Target app executable
-TargetApp = "ls"
+TargetApp = "/snap/bin/chromium"
 # Target app params
-TargetAppArgs = [ "-l", "-h" ]
+TargetAppArgs = [ "https://google.com" ]
 # Override valid exit codes
-ValidExitCode = [ 0, -1 ]
-
-
+ValidExitCode = [ 0 ]
 
 [Logging]
 # Redirect output of the target program to the kiosk stdout
