@@ -1,0 +1,8 @@
+bin/*
+man/*.1
+man/*.5
+
+
+*.deb
+deb/etc/*
+deb/usr/*

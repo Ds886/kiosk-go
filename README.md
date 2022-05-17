@@ -43,8 +43,33 @@ ValidExitCode = [ 0 ]
 OutputToStdOut = true
 ```
 
-## Compiling 
-Run the command `go build`
+## Compiling
+
+### Prerequisites
+#### Required
+ - Go v1.13+
+ - go-md2man
+ - make
+
+#### Optional(for .deb packaging)
+ - dpkg-deb
+ - gzip
+
+### Development
+1. Run the command `make`
+
+Compiled binaries are found under the bin directory
+
+### Release
+
+1. Run the command `make release`
+1. Run the command `sudo make install`
+
+* PREfIX cna be changed using the command `make release prefix=<usr path> DESTDIR=<root path>` by default it will be installed to  `/usr/local` *
+
+### Debian package
+
+1. Run the command `make deb`
 
 ## Todo
 1. Make an option to skip the config
@@ -54,5 +79,5 @@ Run the command `go build`
   1. Add logging to file
     1. Add custom path
     1. Max file size
-    1. logrotate script 
+    1. logrotate script
 1. Improve folder structure to be more go friendly
