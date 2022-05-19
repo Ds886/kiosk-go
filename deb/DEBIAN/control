@@ -1,0 +1,6 @@
+Package: kiosk-go
+Version: 0.0.1
+Architecture: amd64
+Maintainer: Ds886
+Description: Program to enforce single app kiosk mode.
+  Program to enforce single app kiosk mode written in go.
