@@ -2,11 +2,12 @@ DOCS = man/kiosk-go.1 man/kiosk.toml.5
 TARGETS_OBJ = bin/kiosk-go ${DOCS}
 
 DESTDIR ?= /
-prefix ?= /usr/local
-bindir = ${DESTDIR}/bin
-man1dir = ${DESTDIR}/share/man1
-man5dir = ${DESTDIR}/share/man5
-etcdir ?= ${DESTDIR}/etc
+PREFIX ?= usr/local
+BINDIR = ${DESTDIR}${PREFIX}/bin
+MAN1DIR = ${DESTDIR}${PREFIX}/share/man1
+MAN5DIR = ${DESTDIR}${PREFIX}/share/man5
+ETCDIR ?= ${DESTDIR}${PREFIX}/etc
+
 GOARCH ?= amd64
 GOOS ?= linux
 GOOPTS = 
@@ -31,16 +32,16 @@ run:
 	./bin/kiosk-go
 
 install: ${TARGET_OBJ}
-	$(INSTALL) -D bin/kiosk-go ${bindir}/kiosk-go
-	$(INSTALL) -Dm 644 man/kiosk-go.1 ${man1dir}/kiosk-go.1
-	$(INSTALL) -Dm 644 man/kiosk.toml.5 ${man5dir}/kiosk.toml.5
-	${INSTALL} -Dm 644 res/kiosk.toml ${etcdir}/kiosk.toml
+	$(INSTALL) -D bin/kiosk-go ${BINDIR}/kiosk-go
+	$(INSTALL) -Dm 644 man/kiosk-go.1 ${MAN1DIR}/kiosk-go.1
+	$(INSTALL) -Dm 644 man/kiosk.toml.5 ${MAN5DIR}/kiosk.toml.5
+	${INSTALL} -Dm 644 res/kiosk.toml ${ETCDIR}/kiosk.toml
 
 uninstall:
-	${RM} ${prefix}/bin/kiosk-go
-	${RM} ${prefix}/share/man1/kiosk-go.1
-	${RM} ${prefix}/share/man5/kiosk.toml.5
-	${RM} ${etcdir}/kiosk.toml
+	${RM} ${BINDIR}/kiosk-go
+	${RM} ${MAN1DIR}/kiosk-go.1
+	${RM} ${MAN5DIR}/kiosk.toml.5
+	${RM} ${ETCDIR}/kiosk.toml
 
 man/%: man/%.md
 	go-md2man -in $< -out $@
