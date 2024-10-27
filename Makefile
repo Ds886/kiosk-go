@@ -3,9 +3,9 @@ TARGETS_OBJ = bin/kiosk-go ${DOCS}
 
 DESTDIR ?= /
 prefix ?= /usr/local
-bindir = ${prefix}/bin
-man1dir = ${prefix}/share/man1
-man5dir = ${prefix}/share/man5
+bindir = ${DESTDIR}/bin
+man1dir = ${DESTDIR}/share/man1
+man5dir = ${DESTDIR}/share/man5
 etcdir ?= ${DESTDIR}/etc
 GOARCH ?= amd64
 GOOS ?= linux
